@@ -71,36 +71,69 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
     
-        <script>
+    <script>
         function authenticateUser() {
-        const email = document.getElementById("floatingInput").value;
-        const senha = document.getElementById("floatingPassword").value;
-
-        if (email === "admin@admin" && senha === "super@@123") {
-            window.location.href = 'tabela_agendamento.html';
-        } else {
+            const email = document.getElementById("floatingInput").value;
+            const senha = document.getElementById("floatingPassword").value;
+    
             $.ajax({
-                url: 'https://653fd58445bedb25bfc15109.mockapi.io/funcionario',
+                url: 'https://6546cab4902874dff3abd7e1.mockapi.io/admin',
                 method: 'GET',
                 dataType: 'json',
-                success: function (data) {
-                    const user = data.find(function (item) {
+                success: function (adminData) {
+                    const adminUser = adminData.find(function (item) {
                         return item.email === email && item.senha === senha;
                     });
-
-                    if (user) {
+    
+                    if (adminUser) {
                         window.location.href = 'tabela_agendamento.html';
                     } else {
-                        alert('Credenciais incorretas. Tente novamente.');
+                        $.ajax({
+                            url: 'https://653fd58445bedb25bfc15109.mockapi.io/funcionario',
+                            method: 'GET',
+                            dataType: 'json',
+                            success: function (data) {
+                                const user = data.find(function (item) {
+                                    return item.email === email && item.senha === senha;
+                                });
+    
+                                if (user) {
+                                    window.location.href = 'tabela_agendamento.html';
+                                } else {
+                                    alert('Credenciais incorretas. Tente novamente.');
+                                }
+                            },
+                            error: function () {
+                                alert('Erro ao fazer login. Tente novamente.');
+                            }
+                        });
                     }
                 },
                 error: function () {
-                    alert('Erro ao fazer login. Tente novamente.');
+                    $.ajax({
+                        url: 'https://653fd58445bedb25bfc15109.mockapi.io/funcionario',
+                        method: 'GET',
+                        dataType: 'json',
+                        success: function (data) {
+                            const user = data.find(function (item) {
+                                return item.email === email && item.senha === senha;
+                            });
+    
+                            if (user) {
+                                window.location.href = 'tabela_agendamento.html';
+                            } else {
+                                alert('Credenciais incorretas. Tente novamente.');
+                            }
+                        },
+                        error: function () {
+                            alert('Erro ao fazer login. Tente novamente.');
+                        }
+                    });
                 }
             });
         }
-    }
-</script>
+    </script>
+    
 
     
 
