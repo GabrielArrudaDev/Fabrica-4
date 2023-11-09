@@ -75,7 +75,7 @@
         function authenticateUser() {
             const email = document.getElementById("floatingInput").value;
             const senha = document.getElementById("floatingPassword").value;
-    
+            
             $.ajax({
                 url: 'https://6546cab4902874dff3abd7e1.mockapi.io/admin',
                 method: 'GET',
@@ -84,9 +84,12 @@
                     const adminUser = adminData.find(function (item) {
                         return item.email === email && item.senha === senha;
                     });
-    
+
                     if (adminUser) {
-                        window.location.href = 'tabela_agendamento.html';
+                        // Armazenando os dados do admin no Armazenamento Local
+                        localStorage.setItem('adminEmail', email);
+                        localStorage.setItem('adminSenha', senha);
+                        window.location.href = 'adm/tabela_agendamento.html';
                     } else {
                         $.ajax({
                             url: 'https://653fd58445bedb25bfc15109.mockapi.io/funcionario',
@@ -96,7 +99,7 @@
                                 const user = data.find(function (item) {
                                     return item.email === email && item.senha === senha;
                                 });
-    
+
                                 if (user) {
                                     window.location.href = 'tabela_agendamento.html';
                                 } else {
@@ -110,25 +113,7 @@
                     }
                 },
                 error: function () {
-                    $.ajax({
-                        url: 'https://653fd58445bedb25bfc15109.mockapi.io/funcionario',
-                        method: 'GET',
-                        dataType: 'json',
-                        success: function (data) {
-                            const user = data.find(function (item) {
-                                return item.email === email && item.senha === senha;
-                            });
-    
-                            if (user) {
-                                window.location.href = 'tabela_agendamento.html';
-                            } else {
-                                alert('Credenciais incorretas. Tente novamente.');
-                            }
-                        },
-                        error: function () {
-                            alert('Erro ao fazer login. Tente novamente.');
-                        }
-                    });
+                    alert('Erro ao fazer login. Tente novamente.');
                 }
             });
         }

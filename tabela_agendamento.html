@@ -62,7 +62,6 @@
                 </div>
                 <div class="navbar-nav w-100">
                     <a href="tabela_agendamento.html" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Agendamento</a>
-                    <a id="tabela_cadastro_nav" href="tabela_cadastro.html" class="nav-item nav-link "><i class="fa fa-tachometer-alt me-2"></i>Cadastro</a>
                     <a href="recebidos.html" class="nav-item nav-link"><i class="fa fa-laptop me-2"></i>Recebidos</a>
                     <a href="lista.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>A Fazer</a>
                 </div>
@@ -276,56 +275,80 @@
                     }
                 
                     function carregarTabela(clientes) {
-                        let tbody = document.querySelector("tbody");
-                        tbody.textContent = "";
-                        clientes.forEach(cli => {
-                            let tr = document.createElement('tr');
-                            let thId = document.createElement('th');
-                            let tdNome = document.createElement('td');
-                            let tdData = document.createElement('td');
-                            let tdHorario = document.createElement('td');
-                            let tdTelefone = document.createElement('td');
-                            let tdCorte = document.createElement('td');
-                            let tdPreco = document.createElement('td');
-                            let tdAdicional = document.createElement('td');
-                            let tdAlterar = document.createElement('td');
-                            let tdExcluir = document.createElement('td');
-                
-                            thId.textContent = cli.id;
-                            tdNome.textContent = cli.nome;
-                            tdData.textContent = formatarData(cli.data);
-                            tdHorario.textContent = cli.horario;
-                            tdTelefone.textContent = cli.telefone;
-                            tdCorte.textContent = cortes[cli.corte];
-                            tdPreco.textContent = precos[cli.preco];
-                            tdAdicional.textContent = cli.adicional;
-                            tdAlterar.innerHTML = '<button type="button" class="btn btn-info" onclick="buscarCliente(' + cli.id + ')"><i class="bi bi-pencil-square"></i> Alterar</button>';
-                
-                            tdExcluir.innerHTML = '<button type="button" class="btn btn-danger" onclick="excluirCliente(' + cli.id + ')"><i class="bi bi-trash"></i> Excluir</button>';
-                
-                            tr.appendChild(thId);
-                            tr.appendChild(tdNome);
-                            tr.appendChild(tdData);
-                            tr.appendChild(tdHorario);
-                            tr.appendChild(tdTelefone);
-                            tr.appendChild(tdCorte);
-                            tr.appendChild(tdPreco);
-                            tr.appendChild(tdAdicional);
-                            tr.appendChild(tdAlterar);
-                            tr.appendChild(tdExcluir);
-                            tbody.appendChild(tr);
-                        });
-                    }
+    let tbody = document.querySelector("#tbody");
+    tbody.innerHTML = ""; // Limpa o conteúdo da tabela
+
+    clientes.forEach(cli => {
+        let tr = document.createElement("tr");
+        let thId = document.createElement("th");
+        let tdNome = document.createElement("td");
+        let tdData = document.createElement("td");
+        let tdHorario = document.createElement("td");
+        let tdTelefone = document.createElement("td");
+        let tdCorte = document.createElement("td");
+        let tdPreco = document.createElement("td");
+        let tdAdicional = document.createElement("td");
+        let tdAlterar = document.createElement("td");
+        let tdExcluir = document.createElement("td");
+
+        thId.textContent = cli.id;
+        tdNome.textContent = cli.nome;
+        tdData.textContent = formatarData(cli.data);
+        tdHorario.textContent = cli.horario;
+        tdTelefone.textContent = cli.telefone;
+        tdCorte.textContent = cortes[cli.corte];
+        tdPreco.textContent = precos[cli.preco];
+        tdAdicional.textContent = cli.adicional;
+        
+        let buttonAlterar = document.createElement("button");
+        buttonAlterar.type = "button";
+        buttonAlterar.className = "btn btn-info";
+        buttonAlterar.innerHTML = '<i class="bi bi-pencil-square"></i> Alterar';
+        buttonAlterar.onclick = function () {
+            buscarCliente(cli.id);
+        };
+        
+        let buttonExcluir = document.createElement("button");
+        buttonExcluir.type = "button";
+        buttonExcluir.className = "btn btn-danger";
+        buttonExcluir.innerHTML = '<i class="bi bi-trash"></i> Excluir';
+        buttonExcluir.onclick = function () {
+            excluirCliente(cli.id);
+        };
+
+        tdAlterar.appendChild(buttonAlterar);
+        tdExcluir.appendChild(buttonExcluir);
+
+        tr.appendChild(thId);
+        tr.appendChild(tdNome);
+        tr.appendChild(tdData);
+        tr.appendChild(tdHorario);
+        tr.appendChild(tdTelefone);
+        tr.appendChild(tdCorte);
+        tr.appendChild(tdPreco);
+        tr.appendChild(tdAdicional);
+        tr.appendChild(tdAlterar);
+        tr.appendChild(tdExcluir);
+        
+        tbody.appendChild(tr);
+    });
+}
+
                     function pesquisar() {
-                let textoPesquisa = document.querySelector('#txtPesquisar').value;
-                let clientesFiltrados = clientes.filter(cli => {
-                    return (
-                        cli.nome.toLowerCase().includes(textoPesquisa.toLowerCase()) ||
-                        formatarData(cli.data).includes(textoPesquisa) || precos[cli.preco].toLowerCase().includes(textoPesquisa.toLowerCase()) || cortes[cli.corte].toLowerCase().includes(textoPesquisa.toLowerCase()) || cli.horario.includes(textoPesquisa)
-                    );
-                });
-                carregarTabela(clientesFiltrados); 
-                }
+    let textoPesquisa = document.querySelector('#txtPesquisar').value.toLowerCase();
+    let clientesFiltrados = clientes.filter(cli => {
+        return (
+            cli.nome.toLowerCase().includes(textoPesquisa) ||
+            formatarData(cli.data).includes(textoPesquisa) ||
+            (precos[cli.preco] && precos[cli.preco].toLowerCase().includes(textoPesquisa)) ||
+            (cortes[cli.corte] && cortes[cli.corte].toLowerCase().includes(textoPesquisa)) ||
+            (cli.horario && cli.horario.includes(textoPesquisa))
+        );
+    });
+    carregarTabela(clientesFiltrados);
+}
+
+
                     function excluirCliente(id) {
                     if (confirm('Tem certeza que deseja excluir este cliente?')) {
                         fetch(url + '/' + id, {
