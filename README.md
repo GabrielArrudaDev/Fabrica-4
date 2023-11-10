@@ -69,6 +69,8 @@ Possivel criar um novo agendamento mesmo atualiando:
 
 ![teste2](https://github.com/GabrielArrudaDev/Fabrica-4/assets/93550330/120b26fc-2173-4bc7-9d54-a045dc94b38c)
 
+Codigo comentado:
+![Alt text](image.png)
 
 Banco de Dados 🗂️
 MockApi.
