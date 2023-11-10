@@ -60,6 +60,10 @@ Como rodar a aplicação
 Abra o arquivo "index.html" essa é a nossa primeira tela, a tela de login, nele você deve utilizar o email/senha criado para  o administrador (Carlos Bernardino: email: admin@admin - senha: super@@123), apos efetuar o login iremos para a pagina de agendamento, onde nela voce pode criar, alterar, pesquisar e exluir os dados de um corte. Em seguida teremos a tela de cadastro, deve se utilizar o mesmo login anterior para poder liberar a tela (email: admin@admin - senha: super@@123), e nessa tela podemos realizar o cadastro de usuario, onde nele voce tem as mesmas funções que na tela de agendamento, porem para administrar novos usuarios, para serem utilizados no login. 
 
 Testes realizados 
+agendamento
+![teste1](https://github.com/GabrielArrudaDev/Fabrica-4/assets/93550330/24a7a5d8-cbf3-4e7d-82dc-425ec748add7)
+possivel criar um novo agendamento mesmo atualiando
+![teste2](https://github.com/GabrielArrudaDev/Fabrica-4/assets/93550330/120b26fc-2173-4bc7-9d54-a045dc94b38c)
 
 
 Banco de Dados 🗂️
