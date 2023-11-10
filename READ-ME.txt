@@ -1,11 +1,86 @@
-  =>  Template Name    : DarkPan - Bootstrap 5 Admin Template
+Galeria Bernardino
+Versão: 2.0
 
-  =>  Template Link    : https://htmlcodex.com/bootstrap-5-admin-template
+Status do Projeto: ⚠️ Espera 
 
-  =>  Template License : https://htmlcodex.com/license (or read the LICENSE.txt file)
+Tópicos
 
-  =>  Template Author  : HTML Codex
+🔹 Descrição do projeto
 
-  =>  Author Website   : https://htmlcodex.com
+🔹 Funcionalidades
 
-  =>  About HTML Codex : HTML Codex is one of the top creators and publishers of Free HTML templates, HTML landing pages, HTML email templates and HTML snippets in the world. Read more at ( https://htmlcodex.com/about-us )
+🔹 Distribuição
+
+🔹 Pré-requisitos
+
+🔹 Como rodar a aplicação
+
+🔹 Testes realizados
+
+🔹 Banco de Dados
+
+🔹 Linguagens, dependências e libs utilizadas
+
+🔹 Novas Recursos
+
+🔹 Resolvendo problemas
+
+🔹 Recursos inseridos
+
+🔹 Desenvolvedores/Contribuintes
+
+🔹 Informações Extras
+
+
+Insira os tópicos do README em links para facilitar a navegação do leitor
+
+Descrição do projeto
+Interface de usuário para uma aplicação de gerenciamento de agendamento de cortes de clientes e cadastro de usuarios.
+
+Funcionalidades ⚙️
+✔️ Login ADM
+
+✔️ Login Funcionario
+
+✔️ Agendamento cliente
+
+✔️ Cadastro usuario
+
+✔️ Lista a fazer
+
+⚠️  Recebidos (graficos)
+
+Distribuição
+https://github.com/GabrielArrudaDev/Fabrica-4.
+
+Pré-requisitos ⚠️
+Computador/Notebook, Visual Studio Code, GitHub (https://github.com/GabrielArrudaDev/Fabrica-4), Navegador, Conexão com a internet.
+
+Como rodar a aplicação
+Abra o arquivo "index.html" essa é a nossa primeira tela, a tela de login, nele você deve utilizar o email/senha criado pelo administrador (Carlos Bernardino) ou utilizar o login do mesmo (email: admin@admin - senha: super@@123), apos efetuar o login iremos para a pagina de agendamento, onde nela voce pode criar, alterar, pesquisar e exluir os dados de um corte. Caso voce tenha logado como administrador, tera acesso ao cadastro de usuario, onde nele voce tem as mesmas funções que na tela de agendamento, porem para administrar novos usuarios, para serem utilizados no login. Em seguida temos a tela a fazer, onde ali podemos criar tarefas ou qualquer outra coisa que desejar anotar para o dia.
+
+Testes realizados ##
+Utilização de imagens e descrição do qeu foi testado.
+
+Banco de Dados 🗂️
+MockApi.
+
+Linguagens, dependencias e libs utilizadas 📚
+HTML5, CSS3, JavaScript, Bootstrap 5.3.
+
+Resolvendo Problemas ##
+Em issues foram abertos alguns problemas gerados durante o desenvolvimento desse projeto e como foram resolvidos.
+
+Recursos de inseridos 🧰
+Pretendemos criar uma tela de graficos com todos os dados de cortes, valores, onde a mesma sera a tela "recebidos.html".
+
+📝 Tela de recebidos
+
+Desenvolvedores/Contribuintes:
+Thalles Bruno Ribeiro Rodrigues 222629
+Gabriel Arruda 211867
+Lucas Henrique Botelho 222306
+Leônidas Alvarenga 212049
+Gabriela Mello Machado 234909
+
+Copyright ©️ 2023 - Galeria Bernardino
