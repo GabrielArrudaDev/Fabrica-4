@@ -7,70 +7,82 @@
     <meta charset="utf-8">
     <title>Galeria Bernardino</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
+    <meta content="" name="keywords"> <!-- Palavras-chave do site -->
+    <meta content="" name="description"> <!-- Descrição do site -->
 
     <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+    <link href="img/favicon.ico" rel="icon"> <!-- Ícone exibido na aba do navegador -->
 
     <!-- Fontes do Google Web -->
+    <!-- Importando fontes do Google para estilizar o texto -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@500;700&display=swap" rel="stylesheet"> 
     
     <!-- Folha de Estilo para Ícones -->
+    <!-- Importando bibliotecas de ícones, Font Awesome e Bootstrap Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Folha de Estilo para Bibliotecas -->
+    <!-- Importando estilos de bibliotecas como Owl Carousel e Tempus Dominus para uso posterior -->
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
     <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
 
     <!-- Folha de Estilo Personalizada para Bootstrap -->
+    <!-- Importando a folha de estilo personalizada para estilizar elementos do Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Folha de Estilo do Modelo -->
+    <!-- Importando folha de estilo personalizada para o modelo específico -->
     <link href="css/style.css" rel="stylesheet">
 </head>
 
 <body>
     <!-- Container para a Página Inteira -->
+    <!-- Criando um container para a página inteira -->
     <div class="container-fluid position-relative d-flex p-0">
         <!-- Spinner para Indicação de Carregamento -->
+        <!-- Adicionando um spinner que indica o carregamento da página -->
         <div id="spinner" class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
             <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-                <span class="sr-only">Loading...</span>
+                <span class="sr-only">Loading...</span> <!-- Texto alternativo para acessibilidade -->
             </div>
         </div>
         <!-- Fim do Spinner -->
 
 
         <!-- Seção de Login -->
+        <!-- Iniciando a seção de login -->
         <div class="container-fluid">
             <div class="row h-100 align-items-center justify-content-center" style="min-height: 100vh;">
                 <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
                     <div class="bg-secondary rounded p-4 p-sm-5 my-4 mx-3">
                         
                         <!-- Formulário de Login -->
+                        <!-- Criando um formulário de login com campos para e-mail, senha e um botão de envio -->
                         <form id="loginForm" onsubmit="authenticateUser(); return false;">
                             <div class="text-center">
-                                <h3 class="text-primary"><i class="fa fa-user-edit me-2"></i>Galeria Bernardino</h3>
+                                <h3 class="text-primary"><i class="fa fa-user-edit me-2"></i>Galeria Bernardino</h3> <!-- Título da seção de login -->
                             </div>
                             <br>
                             
                             <!-- Campo de Entrada de Email -->
+                            <!-- Adicionando um campo de entrada para o e-mail -->
                             <div class="form-floating mb-3">
                                 <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
                                 <label for="floatingInput">Email</label>
                             </div>
                             
                             <!-- Campo de Entrada de Senha -->
+                            <!-- Adicionando um campo de entrada para a senha -->
                             <div class="form-floating mb-4">
                                 <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
                                 <label for="floatingPassword">Senha</label>
                             </div>
                             
                             <!-- Botão de Envio -->
+                            <!-- Adicionando um botão para enviar o formulário -->
                             <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Log in</button>
                         </form>
                         <!-- Fim do Formulário de Login -->
@@ -82,44 +94,46 @@
          <!-- Fim do Container para a Página Inteira -->
 
     <!-- Bibliotecas JavaScript -->
+    <!-- Importando bibliotecas JavaScript, como jQuery e Bootstrap -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
     
         <!-- Função JavaScript para Autenticação do Usuário -->
+        <!-- Adicionando uma função JavaScript para autenticar o usuário -->
         <script>
         function authenticateUser() {
-        const email = document.getElementById("floatingInput").value;
-        const senha = document.getElementById("floatingPassword").value;
+            const email = document.getElementById("floatingInput").value; // Obtendo o valor do campo de e-mail
+            const senha = document.getElementById("floatingPassword").value; // Obtendo o valor do campo de senha
 
-        if (email === "admin@admin" && senha === "super@@123") {
-            window.location.href = 'tabela_agendamento.html';
-        } else {
-            $.ajax({
-                url: 'https://653fd58445bedb25bfc15109.mockapi.io/funcionario',
-                method: 'GET',
-                dataType: 'json',
-                success: function (data) {
-                    const user = data.find(function (item) {
-                        return item.email === email && item.senha === senha;
-                    });
+            if (email === "admin@admin" && senha === "super@@123") { // Verificando se o e-mail e a senha correspondem a um usuário específico
+                window.location.href = 'tabela_agendamento.html'; // Redirecionando para uma página específica em caso de correspondência bem-sucedida
+            } else {
+                $.ajax({ // Iniciando uma solicitação Ajax para um URL específico em caso de falha na correspondência
+                    url: 'https://653fd58445bedb25bfc15109.mockapi.io/funcionario', // URL para a solicitação
+                    method: 'GET', // Método da solicitação
+                    dataType: 'json', // Tipo de dados esperado como resposta
+                    success: function (data) { // Função de callback em caso de solicitação bem-sucedida
+                        const user = data.find(function (item) { // Procurando um usuário correspondente nos dados recebidos
+                            return item.email === email && item.senha === senha; // Verificando se o e-mail e a senha correspondem a um usuário específico nos dados recebidos
+                        });
 
-                    if (user) {
-                        window.location.href = 'tabela_agendamento.html';
-                    } else {
-                        alert('Credenciais incorretas. Tente novamente.');
+                        if (user) { // Verificando se um usuário correspondente foi encontrado
+                            window.location.href = 'tabela_agendamento.html'; // Redirecionando para uma página específica em caso de correspondência bem-sucedida
+                        } else {
+                            alert('Credenciais incorretas. Tente novamente.'); // Exibindo um alerta em caso de credenciais incorretas
+                        }
+                    },
+                    error: function () { // Função de callback em caso de erro na solicitação
+                        alert('Erro ao fazer login. Tente novamente.'); // Exibindo um alerta em caso de erro na autenticação
                     }
-                },
-                error: function () {
-                    alert('Erro ao fazer login. Tente novamente.');
-                }
-            });
+                });
+            }
         }
-    }
-</script>
+        </script>
 
     
-
     <!-- JavaScript do Modelo -->
+    <!-- Importando script JavaScript personalizado para o modelo -->
     <script src="js/main.js"></script>
 
     
