@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form>        
+        <div class="form-floating">
+              <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+              <label for="floatingInput">Email ("123@123.com.br")</label>
+        </div>
+        <div class="form-floating position-relative">
+            <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+            <label for="floatingPassword">Senha ("123")</label>
+        </div>
+      
+        <div class="checkbox mb-3">
+      
+        </div>
+
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Entrar</button>
+        
+      </form>
+    <script>
+        function salvar() {
+            let nome = document.querySelector('#txtNome').value;
+            let email = document.querySelector('#txtEmail').value;
+            let botaoSalvar = document.querySelector("button.btn.btn-primary");
+        
+            if (botaoSalvar.textContent === "Salvar") {
+                let json = { nome, email, senha }; // Incluído o campo de senha no objeto JSON
+        
+                fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(json)
+                }).then(value => {
+                    alert('Inserido com sucesso.');
+                    listarClientes();
+                });
+            } else if (botaoSalvar.textContent === "Atualizar") {
+                let id = parseInt(botaoSalvar.dataset.clienteId);
+                alterarCliente(id, nome, email, senha); // Adicionado o parâmetro de senha na chamada da função de alterarCliente
+            }
+        }
+    </script>
+</body>
+</html>

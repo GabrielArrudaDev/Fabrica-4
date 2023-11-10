@@ -34,6 +34,7 @@
 </head>
 
 <body onload="listarClientes()">
+    <div id="tela" style="display: none;">
     <div class="container-fluid position-relative d-flex p-0">
         <!-- Spinner Start -->
         <div id="spinner" class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -162,6 +163,37 @@
                             </div>
                         </div>
                     </form>
+                    <script>
+                        window.onload = function() {
+                            var storedEmail = sessionStorage.getItem('email');
+                            var storedPassword = sessionStorage.getItem('password');
+                    
+                            if (storedEmail === "admin@admin" && storedPassword === "super@@123") {
+                                document.getElementById("tela").style.display = "block";
+                            } else {
+                                var email = prompt("Por favor, insira o Email:");
+                                if (email === "admin@admin") {
+                                    var senha = prompt("Por favor, insira a senha:");
+                                    if (senha === "super@@123") {
+                                        sessionStorage.setItem('email', email);
+                                        sessionStorage.setItem('password', senha);
+                                        document.getElementById("tela").style.display = "block";
+                                        
+                                    } else {
+                                        alert("Acesso negado. Você não tem permissão para visualizar esta página.");
+                                        window.history.back(); // Isso fará com que o navegador volte para a tela anterior.
+                                    }
+                                } else {
+                                    alert("Acesso negado. Você não tem permissão para visualizar esta página.");
+                                    window.history.back(); // Isso fará com que o navegador volte para a tela anterior.
+                                }
+                            }
+                        listarClientes(); // Chamando a função listarClientes() para exibir a tabela corretamente
+
+                        };
+                    </script>
+                    
+                
                 
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
                 <script>
@@ -184,20 +216,19 @@
                         let json = { nome, email, senha }; // Corrigido o nome da propriedade de senha no objeto JSON
                 
                         fetch(url, {
-                                method: 'POST',
-                                headers: { 'Content-Type': 'application/json' },
-                                body: JSON.stringify(json)
-                            }).then(value => {
-                                alert('Inserido com sucesso.');
-                                listarClientes();
-                            });
-
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(json)
+                        }).then(response => response.json()) // Corrigido o nome da variável de resposta para "response"
+                          .then(data => {
+                            alert('Inserido com sucesso.');
+                            listarClientes();
+                        });
                     } else if (botaoSalvar.textContent === "Atualizar") {
                         let id = parseInt(botaoSalvar.dataset.clienteId);
                         alterarCliente(id, nome, email, senha); // Corrigido o nome da propriedade de senha no objeto JSON
                     }
                 }   
-
                     function listarClientes() {
                 
                         fetch(url).then(resposta => resposta.json())
@@ -240,18 +271,12 @@
                     });
                 }
                 
-                function pesquisar() {
-    let textoPesquisa = document.querySelector('#txtPesquisar').value.toLowerCase();
-    let clientesFiltrados = clientes.filter(cli => {
-        return (
-            cli.nome.toLowerCase().includes(textoPesquisa) ||
-            cli.email.toLowerCase().includes(textoPesquisa)
-        );
-    });
-    carregarTabela(clientesFiltrados);
-}
-
-
+                    function pesquisar() {
+                        let textoPesquisa = document.querySelector('#txtPesquisar').value;
+                        let clientesFiltrado = clientes.filter(cli => cli.nome.includes(textoPesquisa) || cli.email.includes(textoPesquisa))
+                        carregarTabela(clientesFiltrado)
+                        
+                    }
                     function excluirCliente(id) {
                     if (confirm('Tem certeza que deseja excluir este cliente?')) {
                         fetch(url + '/' + id, {
@@ -284,32 +309,33 @@
                     }
                 
                     function alterarCliente(id, nome, email, senha) {
-    let json = { id, nome, email, senha }; 
-    fetch(url + '/' + id, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(json)
-    }).then(response => {
-        if (response.ok) {
-            alert('Cliente alterado com sucesso.');
-            listarClientes(); 
-            let botaoSalvar = document.querySelector("button.btn.btn-primary");
-            botaoSalvar.textContent = "Salvar";
-            botaoSalvar.onclick = function () {
-                salvar();
-            };
-
-            // Fecha o formulário e limpa os campos
-            limparFormularioNovo();
-            let myModal = new bootstrap.Modal(document.getElementById('cadastroCliente'));
-            myModal.hide(); // Fecha o modal após o sucesso da operação
-        } else {
-            alert('Erro ao alterar o cliente.');
-        }
-    }).catch(error => {
-        console.error('Erro na requisição de alteração: ', error);
-    });
-}
+                        let json = { id, nome, email, senha }; 
+                        fetch(url + '/' + id, {
+                            method: 'PUT',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(json)
+                        }).then(response => {
+                            if (response.ok) {
+                                alert('Cliente alterado com sucesso.');
+                                listarClientes(); 
+                                let botaoSalvar = document.querySelector("button.btn.btn-primary");
+                                botaoSalvar.textContent = "Salvar";
+                                botaoSalvar.onclick = function () {
+                                    salvar();
+                                };
+                            } else {
+                                alert('Erro ao alterar o cliente.');
+                            }
+                        }).catch(error => {
+                            console.error('Erro na requisição de alteração: ', error);
+                        });
+                    }
+                    let meuModal = new bootstrap.Modal(document.getElementById('cadastroCliente'));
+                    meuModal.hide();
+                
+                    document.getElementById('cadastroCliente').addEventListener('hidden.bs.modal', function () {
+                        limparFormularioNovo();
+                    });
                 
                     function limparFormularioNovo() {
                         document.querySelector('#txtNome').value = '';
