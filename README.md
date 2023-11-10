@@ -61,10 +61,12 @@ Abra o arquivo "index.html" essa é a nossa primeira tela, a tela de login, nele
 
 Testes realizados 
 
-agendamento
+agendamento:
+
 ![teste1](https://github.com/GabrielArrudaDev/Fabrica-4/assets/93550330/24a7a5d8-cbf3-4e7d-82dc-425ec748add7)
 
-possivel criar um novo agendamento mesmo atualiando
+possivel criar um novo agendamento mesmo atualiando:
+
 ![teste2](https://github.com/GabrielArrudaDev/Fabrica-4/assets/93550330/120b26fc-2173-4bc7-9d54-a045dc94b38c)
 
 
