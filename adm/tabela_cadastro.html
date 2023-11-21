@@ -135,7 +135,7 @@
                             <div class="bg-secondary modal-content">
                                 <div class="modal-header">
                                 <h1 class="modal-title fs-5" id="exampleModalLabel">Cadastro de Administrador</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="location.reload();"></button>
                                 </div>
                                 <div class="modal-body">
                                     <div class="mb-3">
@@ -174,38 +174,46 @@
                     const url = "https://653fd58445bedb25bfc15109.mockapi.io/funcionario";
                 
                     function salvar() {
-                    let nome = document.querySelector('#txtNome').value;
-                    let email = document.querySelector('#txtEmail').value;
-                    let senha = document.querySelector('#txtSenha').value; // Corrigido o nome do campo de senha
-                
-                    let botaoSalvar = document.querySelector("button.btn.btn-primary");
-                
-                    if (botaoSalvar.textContent === "Cadastrar") { // Alterado para "Cadastrar"
-                        let json = { nome, email, senha }; // Corrigido o nome da propriedade de senha no objeto JSON
-                
-                        fetch(url, {
-                                method: 'POST',
-                                headers: { 'Content-Type': 'application/json' },
-                                body: JSON.stringify(json)
-                            }).then(value => {
-                                alert('Inserido com sucesso.');
-                                listarClientes();
+    let nome = document.querySelector('#txtNome').value;
+    let email = document.querySelector('#txtEmail').value;
+    let senha = document.querySelector('#txtSenha').value;
 
-                                limparFormularioNovo();
+    // Verificar se os campos obrigatórios estão preenchidos
+    if (!nome || !email || !senha) {
+        alert('Por favor, preencha todos os campos obrigatórios.');
+        return; // Sair da função se houver campos em branco
+    }
+
+    let botaoSalvar = document.querySelector("button.btn.btn-primary");
+
+    if (botaoSalvar.textContent === "Cadastrar") {
+        let json = { nome, email, senha };
+
+        // Validar o formato do email ou qualquer outra validação necessária
+        if (!email) {
+            alert('Por favor, insira um endereço de e-mail válido.');
+            return; // Sair da função se o e-mail não for válido
+        }
+
+        fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(json)
+                }).then(value => {
+                    alert('Inserido com sucesso.');
+                    listarClientes();
+                    limparFormularioNovo();
+                    location.reload();
             let myModal = new bootstrap.Modal(document.getElementById('cadastroCliente'));
             myModal.hide(); // Fecha o modal após o sucesso da operação
-                            });
+            });
+    } else if (botaoSalvar.textContent === "Atualizar") {
+        let id = parseInt(botaoSalvar.dataset.clienteId);
+        alterarCliente(id, nome, email, senha);
+    }
+}
 
-                    } else if (botaoSalvar.textContent === "Atualizar") {
-                        let id = parseInt(botaoSalvar.dataset.clienteId);
-                        alterarCliente(id, nome, email, senha); // Corrigido o nome da propriedade de senha no objeto JSON
-                    }
-                }   
-                function limparFormularioNovo() {
-                        document.querySelector('#txtNome').value = '';
-                        document.querySelector('#txtEmail').value = '';
-                        document.querySelector('#txtSenha').value = '';
-                    }
+                
 
 
                     function listarClientes() {
@@ -270,6 +278,7 @@
                             if (response.status === 200) {
                                 alert('Usuário excluído com sucesso.');
                                 listarClientes(); 
+                                location.reload();
                             } else {
                                 alert('Erro ao excluir usuário.');
                             }
@@ -303,11 +312,7 @@
         if (response.ok) {
             alert('Usuário alterado com sucesso.');
             listarClientes(); 
-
-            // Fecha o formulário e limpa os campos
-            limparFormularioNovo();
-            let myModal = new bootstrap.Modal(document.getElementById('cadastroCliente'));
-            myModal.hide(); // Fecha o modal após o sucesso da operação
+            location.reload();
         } else {
             alert('Erro ao alterar usuário.');
         }

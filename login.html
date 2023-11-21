@@ -75,7 +75,19 @@
         function authenticateUser() {
             const email = document.getElementById("floatingInput").value;
             const senha = document.getElementById("floatingPassword").value;
-            
+    
+            // Verifica se o campo de e-mail está vazio
+            if (email.trim() === '') {
+                alert('Digite o email, por favor.');
+                return;
+            }
+    
+            // Verifica se o campo de senha está vazio
+            if (senha.trim() === '') {
+                alert('Digite a senha, por favor.');
+                return;
+            }
+    
             $.ajax({
                 url: 'https://6546cab4902874dff3abd7e1.mockapi.io/admin',
                 method: 'GET',
@@ -84,7 +96,7 @@
                     const adminUser = adminData.find(function (item) {
                         return item.email === email && item.senha === senha;
                     });
-
+    
                     if (adminUser) {
                         // Armazenando os dados do admin no Armazenamento Local
                         localStorage.setItem('adminEmail', email);
@@ -99,11 +111,11 @@
                                 const user = data.find(function (item) {
                                     return item.email === email && item.senha === senha;
                                 });
-
+    
                                 if (user) {
                                     window.location.href = 'adm/tabela_agendamento.html';
                                 } else {
-                                    alert('Credenciais incorretas. Tente novamente.');
+                                    alert('Usuário não encontrado.');
                                 }
                             },
                             error: function () {
