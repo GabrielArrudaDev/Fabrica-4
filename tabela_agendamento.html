@@ -56,14 +56,11 @@
                         <div class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1"></div>
                     </div>
                     <div class="ms-3">
-                        <h6 class="mb-0">Carlos</h6>
-                        <span>Admin</span>
+                        <h6 class="mb-0">***</h6>
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
                     <a href="tabela_agendamento.html" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Agendamento</a>
-                    <!--<a id="tabela_cadastro_nav" href="tabela_cadastro.html" class="nav-item nav-link "><i class="fa fa-tachometer-alt me-2"></i>Cadastro</a>-->
-                    <!-- <a href="recebidos.html" class="nav-item nav-link"><i class="fa fa-laptop me-2"></i>Recebidos</a>-->
                     <a href="lista.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>A Fazer</a>
                 </div>
             </nav>
@@ -86,10 +83,10 @@
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <img class="rounded-circle me-lg-2" src="img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex">Carlos</span>
+                            <span class="d-none d-lg-inline-flex">***</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-                            <a href="../login.html" class="dropdown-item">Sair</a>
+                            <a href="sair.html" class="dropdown-item">Sair</a>
                         </div>
                     </div>
                 </div>
@@ -137,7 +134,7 @@
                         <div class="bg-secondary modal-content">
                             <div class="modal-header">
                             <h1 class="modal-title fs-5" id="exampleModalLabel">Cadastro de Agendamento</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background-color: red;" onclick="location.reload();"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background-color: red;"></button>
                             </div>
                             <div class="modal-body">
                                 <div class="mb-3">
@@ -198,6 +195,7 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="limparFormulario()">Fechar</button>
                                 <button class="w-100 btn btn-lg btn-primary" type="post" onclick="salvar()">Salvar</button>
                                 </div>
                         </div>
@@ -266,8 +264,8 @@ if (botaoSalvar.textContent === "Salvar") {
     }).then(value => {
         alert('Agendamento realizado com sucesso');
         listarClientes();
+
         limparFormularioNovo();
-        location.reload();
     });
 } else if (botaoSalvar.textContent === "Alterar") {
     let id = parseInt(botaoSalvar.dataset.clienteId);
@@ -423,7 +421,6 @@ if (botaoSalvar.textContent === "Salvar") {
                                 if (response.status === 200) {
                                     alert('Agendamento excluído com sucesso.');
                                     listarClientes(); 
-                                    location.reload();
                                 } else {
                                     alert('Erro ao excluir agendamento.');
                                 }
@@ -463,7 +460,6 @@ if (botaoSalvar.textContent === "Salvar") {
                                 if (response.ok) {
                                     alert('Agendamento alterado com sucesso.');
                                     listarClientes(); 
-                                    location.reload();
                                 } else {
                                     alert('Erro ao alterar agendamento.');
                                 }

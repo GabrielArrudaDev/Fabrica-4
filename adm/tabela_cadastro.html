@@ -62,8 +62,7 @@
                 </div>
                 <div class="navbar-nav w-100">
                     <a href="tabela_agendamento.html" class="nav-item nav-link "><i class="fa fa-tachometer-alt me-2"></i>Agendamento</a>
-                    <a href="tabela_cadastro.html" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Cadastro</a>
-                    <!-- <a href="recebidos.html" class="nav-item nav-link"><i class="fa fa-laptop me-2"></i>Recebidos</a>-->
+                    <a href="tabela_cadastro.html" class="nav-item nav-link active"><i class="fa fa-laptop me-2"></i>Cadastro</a>
                     <a href="lista.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>A Fazer</a>
                 </div>
             </nav>
@@ -89,7 +88,7 @@
                             <span class="d-none d-lg-inline-flex">Carlos</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-secondary border-0 rounded-0 rounded-bottom m-0">
-                            <a href="../login.html" class="dropdown-item">Sair</a>
+                            <a href="../sair.html" class="dropdown-item">Sair</a>
                         </div>
                     </div>
                 </div>
@@ -134,7 +133,7 @@
                             <div class="bg-secondary modal-content">
                                 <div class="modal-header">
                                 <h1 class="modal-title fs-5" id="exampleModalLabel">Cadastro de Administrador</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="location.reload();"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
                                     <div class="mb-3">
@@ -204,15 +203,19 @@
         }).then(valu => {
                 alert('Inserido com sucesso.');
                 listarClientes();
-                let myModal = new bootstrap.Modal(document.getElementById('cadastroCliente'));
-                myModal.hide(); // Fecha o modal após o sucesso da operação
-                location.reload(); // Recarrega a página após o fechamento do modal
+                limparFormularioNovo();
+
             } 
         );
     } else if (botaoSalvar.textContent === "Atualizar") {
         let id = parseInt(botaoSalvar.dataset.clienteId);
         alterarCliente(id, nome, email, senha);
     }
+}
+function limparFormularioNovo() {
+                        document.querySelector('#txtNome').value = '';
+                        document.querySelector('#txtEmail').value = '';
+                        document.querySelector('#txtSenha').value = '';
 }
 
 
@@ -278,7 +281,6 @@
                             if (response.status === 200) {
                                 alert('Usuário excluído com sucesso.');
                                 listarClientes(); 
-                                location.reload();
                             } else {
                                 alert('Erro ao excluir usuário.');
                             }
@@ -292,7 +294,7 @@
                             document.querySelector('#txtEmail').value = cliente.email;
                             document.querySelector('#txtSenha').value = cliente.senha;
                             let botaoSalvar = document.querySelector("button.btn.btn-primary");
-                            botaoSalvar.textContent = "Alterar";
+                            botaoSalvar.textContent = "Atualizar";
                             botaoSalvar.dataset.clienteId = cliente.id; 
                             botaoSalvar.onclick = function () {
                                 salvar();
@@ -312,7 +314,7 @@
         if (response.ok) {
             alert('Usuário alterado com sucesso.');
             listarClientes(); 
-            location.reload();
+            
         } else {
             alert('Erro ao alterar usuário.');
         }
@@ -320,8 +322,11 @@
         console.error('Erro na requisição de alteração: ', error);
     });
 
-}
-                
+    document.getElementById('cadastroCliente').addEventListener('hidden.bs.modal', function () {
+                            limparFormularioNovo();
+                        });
+}                    
+            
                 </script>
     </div>
 
